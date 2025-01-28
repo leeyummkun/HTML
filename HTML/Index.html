@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Health Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Registration Page -->
+    <div id="register-page" class="login-container">
+        <h2>Register to Create an Account</h2>
+        <form id="register-form">
+            <input type="text" id="register-username" placeholder="Username" required>
+            <input type="password" id="register-password" placeholder="Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" id="login-link">Login here</a></p>
+    </div>
+
+    <!-- Login Page (Hidden initially) -->
+    <div id="login-page" class="login-container hidden">
+        <h2>Login to Access the Portal</h2>
+        <form id="login-form">
+            <input type="text" id="login-username" placeholder="Username" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="signup-link">Sign up here</a></p>
+    </div>
+
+    <!-- Main Portal (Hidden initially) -->
+    <div id="portal" class="hidden">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <img src="mnt/data/lshs.jpg" alt="Logo">
+                <h1>Health Portal</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#student-list">Students</a></li>
+                </ul>
+            </nav>
+            <div class="auth">
+                <a href="#" id="logout-link">Log Out</a>
+            </div>
+        </header>
+        <section id="home" class="section">
+            <h2>Welcome to Lian National High School Health Portal</h2>
+            <p>The Lian National High School Health Portal is a secure platform designed for managing and accessing health-related information for students. It provides a central location for students, teachers, and administrators to access health tips, manage student health records, and ensure privacy and security through registration and login.</p>
+        </section>
+        <section id="student-list" class="section">
+            <h2>Student Health Records</h2>
+            <div class="student-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name of Learners</th>
+                            <th>Date Added</th>
+                            <th>Section</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>David Bren S. Sabio</td>
+                            <td>07/07/2007</td>
+                            <td>ICT - SEIH</td>
+                        </tr>
+                        <tr>
+                            <td>Lhee Esteleydes M.</td>
+                            <td>08/08/2008</td>
+                            <td>ICT - SEIH</td>
+                        </tr>
+                        <tr>
+                            <td>John Smith</td>
+                            <td>09/09/2009</td>
+                            <td>ICT - SEIH</td>
+                        </tr>
+                        <tr>
+                            <td>Jhon Palinsad</td>
+                            <td>10/10/2010</td>
+                            <td>ICT - SEIH</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="add-student">
+                <button>+ Add Student</button>
+            </div>
+        </section>
+        <footer>
+            <p>&copy; 2025 Health Portal. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const registerForm = document.getElementById('register-form');
+        const loginForm = document.getElementById('login-form');
+        const registerPage = document.getElementById('register-page');
+        const loginPage = document.getElementById('login-page');
+        const portal = document.getElementById('portal');
+        const loginLink = document.getElementById('login-link');
+        const signupLink = document.getElementById('signup-link');
+        const logoutLink = document.getElementById('logout-link');
+
+        // Local storage simulation (for demo purposes)
+        let registeredUser = null;
+
+        // Register Form Submission
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+
+            if (username && password) {
+                // Store user in a simulated storage (you would store in a database in real-world)
+                registeredUser = { username, password };
+
+                // Show login page after registration
+                alert("Registration successful! You can now log in.");
+                registerPage.classList.add('hidden');
+                loginPage.classList.remove('hidden');
+            } else {
+                alert("Please fill out all fields.");
+            }
+        });
+
+        // Login Form Submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            if (registeredUser && username === registeredUser.username && password === registeredUser.password) {
+                // Successful login, hide login page and show portal
+                loginPage.classList.add('hidden');
+                portal.classList.remove('hidden');
+            } else {
+                alert("Invalid credentials. Please try again.");
+            }
+        });
+
+        // Show Register Page
+        signupLink.addEventListener('click', function() {
+            loginPage.classList.add('hidden');
+            registerPage.classList.remove('hidden');
+        });
+
+        // Show Login Page
+        loginLink.addEventListener('click', function() {
+            registerPage.classList.add('hidden');
+            loginPage.classList.remove('hidden');
+        });
+
+        // Log Out Functionality
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Hide portal and show login page again
+            portal.classList.add('hidden');
+            loginPage.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
+
